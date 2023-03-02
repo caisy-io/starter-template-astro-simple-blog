@@ -1,0 +1,7 @@
+{
+  "startCommand": "npm run dev",
+  "env": {
+    "CAISY_PROJECT_ID": "54026eaa-a8fc-49f9-ac37-ebe5148c4926",
+    "CAISY_API_KEY": "Q1Bi5yudIr4HxQEtVt2fmalZRyndjuDW"
+  }
+}
