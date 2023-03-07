@@ -1,0 +1,13 @@
+---
+import FullText from '../components/fulltext/FullText.astro';
+import Headline from '../components/Headline.astro';
+import type { IGenPage_Components } from '../services/graphql/__generated/sdk';
+
+export interface Props {
+    component: IGenPage_Components;
+}
+
+const { component } = Astro.props;
+---
+{component.__typename == "Headline" && <Headline {...component} />}
+{component.__typename == "Fulltext" && <FullText {...component} />}

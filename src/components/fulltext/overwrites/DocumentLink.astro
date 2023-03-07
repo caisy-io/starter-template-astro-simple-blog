@@ -1,0 +1,7 @@
+---
+import Asset from './../../Asset.astro';
+import type { IGenAsset } from '../../../services/graphql/__generated/sdk';
+const { node, connections } = Astro.props;
+---
+{connections?.map((component: IGenAsset) => component?.__typename == "Asset" && node?.attrs?.documentId == component.id && <Asset {...component}></Asset>)}
+<slot></slot>

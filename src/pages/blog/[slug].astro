@@ -1,0 +1,12 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getProps } from "../../services/content/getProps";
+
+const { slug } = Astro.params;
+const props = await getProps({ slug, isBlogPage: true });
+
+if (props.is404) return Astro.redirect("/404");
+---
+<Layout title={props?.BlogArticle?.seo?.title}>
+  MY BLOG
+</Layout>

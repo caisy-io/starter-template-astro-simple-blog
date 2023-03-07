@@ -1,0 +1,100 @@
+---
+import type {
+  IGenFooter,
+  IGenNavigation,
+  IGenSeoInformation,
+} from "../services/graphql/__generated/sdk";
+import Navigation from "./Navigation.astro";
+import Footer from "./Footer.astro";
+import "@fontsource/inter";
+import DefaultSpacer from "../components/DefaultSpacer.astro";
+
+export interface Props {
+  seo?: IGenSeoInformation | null;
+  navigation?: IGenNavigation | null;
+  footer?: IGenFooter | null;
+}
+
+const { seo, navigation, footer } = Astro.props;
+const ogImageSrc = seo?.ogImage?.src;
+const ogImageAlt = seo?.ogImage?.description;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <title>{seo?.title ?? ""}</title>
+    {
+      seo?.title && (
+        <>
+          <meta property="og:title" content={seo?.title ?? ""} />
+          <meta name="twitter:title" content={seo?.title ?? ""} />
+        </>
+      )
+    }
+    {
+      seo?.description && (
+        <>
+          <meta name="twitter:description" content={seo?.description ?? ""} />
+          <meta name="description" content={seo?.description ?? ""} />
+          <meta property="og:description" content={seo?.description ?? ""} />
+        </>
+      )
+    }
+    {
+      ogImageSrc && (
+        <>
+          <meta property="og:image:type" content="image/jpeg" />
+          <meta property="og:image:width" content="630" />
+          <meta property="og:image:height" content="1200" />
+          <meta
+            property="og:image"
+            content={`${ogImageSrc}?f=jpeg&w=1200&h=630`}
+          />
+          <meta
+            property="og:image:secure_url"
+            content={`${ogImageSrc}?f=jpeg&w=1200&h=630`}
+          />
+          <meta
+            name="twitter:image"
+            content={`${ogImageSrc}?f=jpeg&w=1200&h=630`}
+          />
+        </>
+      )
+    }
+    {ogImageAlt && <meta property="og:image:alt" content={ogImageAlt} />}
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body>
+    <Navigation {...navigation} />
+    <DefaultSpacer/>
+    <main class="font-body">
+      <slot />
+    </main>
+    <Footer {...footer} />
+    <a href="/index"> index</a>
+    <br />
+    <a href="/blog"> blog root</a>
+    <br />
+    <a href="/home"> home</a><br />
+    <a href="/contact"> contact</a><br />
+    <a href="/blog/not-found"> blog not found</a><br />
+    <a href="/x/not-found"> x not found</a><br />
+    <a href="/x/x/not-found"> x/x not found</a><br />
+    <a href="/blog/10-seo-tipps"> blog 10-seo-tipps</a><br />
+  </body>
+</html>
+<style is:global>
+  html {
+    font-family: system-ui, sans-serif;
+  }
+  code {
+    font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
+      DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+  }
+</style>

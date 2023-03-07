@@ -1,0 +1,11 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getProps } from "../../services/content/getProps";
+
+const props = await getProps({ slug: "blog" });
+
+if (props.is404) return Astro.redirect("/404");
+---
+<Layout seo={props?.Page?.seo}>
+  MY BLOG INDEX
+</Layout>

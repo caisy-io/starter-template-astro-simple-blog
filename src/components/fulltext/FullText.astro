@@ -1,0 +1,20 @@
+---
+import RichTextRenderer from '@caisy/rich-text-astro-renderer';
+import type { IGenFulltext } from "../../services/graphql/__generated/sdk";
+import CenterContainer from '../CenterContainer.astro';
+import DocumentLink from './overwrites/DocumentLink.astro';
+
+export interface Props extends IGenFulltext{}
+
+const { text } = Astro.props;
+---
+<CenterContainer>
+    <article class="prose lg:prose-xl">
+        {text?.json && <RichTextRenderer 
+        overwrites={
+            {documentLink: DocumentLink }
+        }
+        connections={text?.connections}
+        node={text?.json} />}
+    </article>
+</CenterContainer>

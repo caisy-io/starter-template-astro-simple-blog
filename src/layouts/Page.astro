@@ -1,0 +1,32 @@
+---
+import type {
+  IGenFooter,
+  IGenNavigation,
+  IGenPage,
+} from "../services/graphql/__generated/sdk";
+import Layout from "./Layout.astro";
+import ComponentSelector from "./ComponentSelector.astro";
+import DefaultSpacer from "../components/DefaultSpacer.astro";
+
+export interface Props {
+  Page?: IGenPage | null;
+  Navigation?: IGenNavigation | null;
+  Footer?: IGenFooter | null;
+}
+
+const props: Props = Astro.props;
+---
+
+<Layout
+  seo={props?.Page?.seo}
+  navigation={props?.Navigation}
+  footer={props?.Footer}
+>
+  <>
+    {
+      props?.Page?.components?.map(
+        (component) => component && <><ComponentSelector component={component} /><DefaultSpacer/></>
+      )
+    }
+  </>
+</Layout>

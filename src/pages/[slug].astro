@@ -2,9 +2,10 @@
 import Page from "../layouts/Page.astro";
 import { getProps } from "../services/content/getProps";
 
-const props = await getProps({});
+const { slug } = Astro.params;
+const props = await getProps({ slug });
 
+console.log(` props`, props);
 if (props.is404) return Astro.redirect("/404");
 ---
 <Page {...props}/>
-
