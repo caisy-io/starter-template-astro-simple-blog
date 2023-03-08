@@ -4,7 +4,9 @@ import type { IGenFulltext } from "../../services/graphql/__generated/sdk";
 import CenterContainer from '../CenterContainer.astro';
 import DocumentLink from './overwrites/DocumentLink.astro';
 
-export interface Props extends IGenFulltext{}
+export interface Props {
+    text?: any;
+}
 
 const { text } = Astro.props;
 ---

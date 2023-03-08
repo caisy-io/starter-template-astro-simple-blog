@@ -4,6 +4,7 @@ export const f_BlogArticle = gql`
   fragment BlogArticle on BlogArticle {
     text {
       connections {
+        __typename
         ...Asset
       }
       json

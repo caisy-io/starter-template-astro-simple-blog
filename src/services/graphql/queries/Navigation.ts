@@ -10,6 +10,10 @@ export const q_Navigation = gql`
         id
         slug
       }
+      notFoundPage {
+        id
+        slug
+      }
       entries {
         ...NavigationEntry
       }

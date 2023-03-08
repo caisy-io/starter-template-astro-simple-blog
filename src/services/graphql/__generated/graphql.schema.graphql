@@ -176,9 +176,105 @@ input Asset_Where {
 }
 
 """"""
+type Author {
+  """"""
+  _meta: CaisyDocument_Meta
+
+  """"""
+  avatar(locale: String): Asset
+
+  """"""
+  id: ID
+
+  """"""
+  name: String
+
+  """"""
+  role: String
+}
+
+""""""
+type Author_Connection {
+  """"""
+  edges: [Author_ConnectionEdge]
+
+  """"""
+  pageInfo: PageInfo
+
+  """"""
+  totalCount: Int
+}
+
+""""""
+type Author_ConnectionEdge {
+  """"""
+  cursor: String
+
+  """"""
+  node: Author
+}
+
+""""""
+input Author_CreateInput {
+  """"""
+  avatar: ID
+
+  """"""
+  name: String
+
+  """"""
+  role: String
+}
+
+""""""
+input Author_Sort {
+  """"""
+  avatar: Order
+
+  """"""
+  name: Order
+
+  """"""
+  role: Order
+}
+
+""""""
+input Author_UpdateInput {
+  """"""
+  avatar: ID
+
+  """"""
+  name: String
+
+  """"""
+  role: String
+}
+
+""""""
+input Author_Where {
+  """"""
+  AND: [Author_Where]
+
+  """"""
+  OR: [Author_Where]
+
+  """"""
+  name: CaisyField_String_Where
+
+  """"""
+  role: CaisyField_String_Where
+}
+
+""""""
 type BlogArticle {
   """"""
   _meta: CaisyDocument_Meta
+
+  """"""
+  author(locale: String): Author
+
+  """"""
+  category(locale: String): Category
 
   """"""
   id: ID
@@ -334,6 +430,12 @@ type BlogArticle_ConnectionEdge {
 """"""
 input BlogArticle_CreateInput {
   """"""
+  author: ID
+
+  """"""
+  category: ID
+
+  """"""
   seo: ID
 
   """"""
@@ -355,6 +457,12 @@ input BlogArticle_CreateInput {
 """"""
 input BlogArticle_Sort {
   """"""
+  author: Order
+
+  """"""
+  category: Order
+
+  """"""
   seo: Order
 
   """"""
@@ -372,6 +480,12 @@ input BlogArticle_Sort {
 
 """"""
 input BlogArticle_UpdateInput {
+  """"""
+  author: ID
+
+  """"""
+  category: ID
+
   """"""
   seo: ID
 
@@ -488,6 +602,69 @@ type Caisy_Field_Document_NotFound {
 
   """"""
   message: String
+}
+
+""""""
+type Category {
+  """"""
+  _meta: CaisyDocument_Meta
+
+  """"""
+  id: ID
+
+  """"""
+  name: String
+}
+
+""""""
+type Category_Connection {
+  """"""
+  edges: [Category_ConnectionEdge]
+
+  """"""
+  pageInfo: PageInfo
+
+  """"""
+  totalCount: Int
+}
+
+""""""
+type Category_ConnectionEdge {
+  """"""
+  cursor: String
+
+  """"""
+  node: Category
+}
+
+""""""
+input Category_CreateInput {
+  """"""
+  name: String
+}
+
+""""""
+input Category_Sort {
+  """"""
+  name: Order
+}
+
+""""""
+input Category_UpdateInput {
+  """"""
+  name: String
+}
+
+""""""
+input Category_Where {
+  """"""
+  AND: [Category_Where]
+
+  """"""
+  OR: [Category_Where]
+
+  """"""
+  name: CaisyField_String_Where
 }
 
 """"""
@@ -619,81 +796,6 @@ type Footer_content {
 union Footer_content_Connections = Caisy_Field_Document_NotFound
 
 """"""
-type FullWithBlogTeaser {
-  """"""
-  _meta: CaisyDocument_Meta
-
-  """"""
-  featuredArticle(locale: String): BlogArticle
-
-  """"""
-  id: ID
-
-  """"""
-  titleInternal: String
-}
-
-""""""
-type FullWithBlogTeaser_Connection {
-  """"""
-  edges: [FullWithBlogTeaser_ConnectionEdge]
-
-  """"""
-  pageInfo: PageInfo
-
-  """"""
-  totalCount: Int
-}
-
-""""""
-type FullWithBlogTeaser_ConnectionEdge {
-  """"""
-  cursor: String
-
-  """"""
-  node: FullWithBlogTeaser
-}
-
-""""""
-input FullWithBlogTeaser_CreateInput {
-  """"""
-  featuredArticle: ID
-
-  """"""
-  titleInternal: String
-}
-
-""""""
-input FullWithBlogTeaser_Sort {
-  """"""
-  featuredArticle: Order
-
-  """"""
-  titleInternal: Order
-}
-
-""""""
-input FullWithBlogTeaser_UpdateInput {
-  """"""
-  featuredArticle: ID
-
-  """"""
-  titleInternal: String
-}
-
-""""""
-input FullWithBlogTeaser_Where {
-  """"""
-  AND: [FullWithBlogTeaser_Where]
-
-  """"""
-  OR: [FullWithBlogTeaser_Where]
-
-  """"""
-  titleInternal: CaisyField_String_Where
-}
-
-""""""
 type Fulltext {
   """"""
   _meta: CaisyDocument_Meta
@@ -779,6 +881,81 @@ type Fulltext_text {
 
 """"""
 union Fulltext_text_Connections = Asset
+
+""""""
+type FullwidthBlogTeaser {
+  """"""
+  _meta: CaisyDocument_Meta
+
+  """"""
+  featuredArticle(locale: String): BlogArticle
+
+  """"""
+  id: ID
+
+  """"""
+  titleInternal: String
+}
+
+""""""
+type FullwidthBlogTeaser_Connection {
+  """"""
+  edges: [FullwidthBlogTeaser_ConnectionEdge]
+
+  """"""
+  pageInfo: PageInfo
+
+  """"""
+  totalCount: Int
+}
+
+""""""
+type FullwidthBlogTeaser_ConnectionEdge {
+  """"""
+  cursor: String
+
+  """"""
+  node: FullwidthBlogTeaser
+}
+
+""""""
+input FullwidthBlogTeaser_CreateInput {
+  """"""
+  featuredArticle: ID
+
+  """"""
+  titleInternal: String
+}
+
+""""""
+input FullwidthBlogTeaser_Sort {
+  """"""
+  featuredArticle: Order
+
+  """"""
+  titleInternal: Order
+}
+
+""""""
+input FullwidthBlogTeaser_UpdateInput {
+  """"""
+  featuredArticle: ID
+
+  """"""
+  titleInternal: String
+}
+
+""""""
+input FullwidthBlogTeaser_Where {
+  """"""
+  AND: [FullwidthBlogTeaser_Where]
+
+  """"""
+  OR: [FullwidthBlogTeaser_Where]
+
+  """"""
+  titleInternal: CaisyField_String_Where
+}
 
 """"""
 type Headline {
@@ -882,10 +1059,16 @@ type Mutation {
   createAsset(input: Asset_CreateInput!, locale: String): Asset
 
   """"""
+  createAuthor(input: Author_CreateInput!, locale: String): Author
+
+  """"""
   createBlogArticle(input: BlogArticle_CreateInput!, locale: String): BlogArticle
 
   """"""
   createBlogArticleGrid(input: BlogArticleGrid_CreateInput!, locale: String): BlogArticleGrid
+
+  """"""
+  createCategory(input: Category_CreateInput!, locale: String): Category
 
   """"""
   createContactForm(input: ContactForm_CreateInput!, locale: String): ContactForm
@@ -894,10 +1077,10 @@ type Mutation {
   createFooter(input: Footer_CreateInput!, locale: String): Footer
 
   """"""
-  createFullWithBlogTeaser(input: FullWithBlogTeaser_CreateInput!, locale: String): FullWithBlogTeaser
+  createFulltext(input: Fulltext_CreateInput!, locale: String): Fulltext
 
   """"""
-  createFulltext(input: Fulltext_CreateInput!, locale: String): Fulltext
+  createFullwidthBlogTeaser(input: FullwidthBlogTeaser_CreateInput!, locale: String): FullwidthBlogTeaser
 
   """"""
   createHeadline(input: Headline_CreateInput!, locale: String): Headline
@@ -924,6 +1107,12 @@ type Mutation {
   ): Boolean
 
   """"""
+  deleteAuthor(
+    """DocumentID"""
+    id: ID!
+  ): Boolean
+
+  """"""
   deleteBlogArticle(
     """DocumentID"""
     id: ID!
@@ -931,6 +1120,12 @@ type Mutation {
 
   """"""
   deleteBlogArticleGrid(
+    """DocumentID"""
+    id: ID!
+  ): Boolean
+
+  """"""
+  deleteCategory(
     """DocumentID"""
     id: ID!
   ): Boolean
@@ -948,13 +1143,13 @@ type Mutation {
   ): Boolean
 
   """"""
-  deleteFullWithBlogTeaser(
+  deleteFulltext(
     """DocumentID"""
     id: ID!
   ): Boolean
 
   """"""
-  deleteFulltext(
+  deleteFullwidthBlogTeaser(
     """DocumentID"""
     id: ID!
   ): Boolean
@@ -1011,6 +1206,21 @@ type Mutation {
   ): Asset
 
   """"""
+  updateAuthor(
+    """documentID"""
+    id: ID!
+
+    """"""
+    input: Author_UpdateInput!
+
+    """"""
+    locale: String
+
+    """Merge updated input (instead of replacing)"""
+    merge: Boolean = true
+  ): Author
+
+  """"""
   updateBlogArticle(
     """documentID"""
     id: ID!
@@ -1039,6 +1249,21 @@ type Mutation {
     """Merge updated input (instead of replacing)"""
     merge: Boolean = true
   ): BlogArticleGrid
+
+  """"""
+  updateCategory(
+    """documentID"""
+    id: ID!
+
+    """"""
+    input: Category_UpdateInput!
+
+    """"""
+    locale: String
+
+    """Merge updated input (instead of replacing)"""
+    merge: Boolean = true
+  ): Category
 
   """"""
   updateContactForm(
@@ -1071,21 +1296,6 @@ type Mutation {
   ): Footer
 
   """"""
-  updateFullWithBlogTeaser(
-    """documentID"""
-    id: ID!
-
-    """"""
-    input: FullWithBlogTeaser_UpdateInput!
-
-    """"""
-    locale: String
-
-    """Merge updated input (instead of replacing)"""
-    merge: Boolean = true
-  ): FullWithBlogTeaser
-
-  """"""
   updateFulltext(
     """documentID"""
     id: ID!
@@ -1099,6 +1309,21 @@ type Mutation {
     """Merge updated input (instead of replacing)"""
     merge: Boolean = true
   ): Fulltext
+
+  """"""
+  updateFullwidthBlogTeaser(
+    """documentID"""
+    id: ID!
+
+    """"""
+    input: FullwidthBlogTeaser_UpdateInput!
+
+    """"""
+    locale: String
+
+    """Merge updated input (instead of replacing)"""
+    merge: Boolean = true
+  ): FullwidthBlogTeaser
 
   """"""
   updateHeadline(
@@ -1206,6 +1431,9 @@ type Navigation {
   id: ID
 
   """"""
+  notFoundPage(locale: String): Page
+
+  """"""
   titleInternal: String
 }
 
@@ -1293,6 +1521,9 @@ input Navigation_CreateInput {
   homePage: ID
 
   """"""
+  notFoundPage: ID
+
+  """"""
   titleInternal: String
 }
 
@@ -1303,6 +1534,9 @@ input Navigation_UpdateInput {
 
   """"""
   homePage: ID
+
+  """"""
+  notFoundPage: ID
 
   """"""
   titleInternal: String
@@ -1531,12 +1765,15 @@ input Page_Where {
 }
 
 """"""
-union Page_components = BlogArticleGrid | ContactForm | FullWithBlogTeaser | Fulltext | Headline | NewsletterSignup
+union Page_components = BlogArticleGrid | ContactForm | Fulltext | FullwidthBlogTeaser | Headline | NewsletterSignup
 
 """"""
 type Query {
   """"""
   Asset(id: ID!, locale: String): Asset
+
+  """"""
+  Author(id: ID!, locale: String): Author
 
   """"""
   BlogArticle(id: ID!, locale: String): BlogArticle
@@ -1545,16 +1782,19 @@ type Query {
   BlogArticleGrid(id: ID!, locale: String): BlogArticleGrid
 
   """"""
+  Category(id: ID!, locale: String): Category
+
+  """"""
   ContactForm(id: ID!, locale: String): ContactForm
 
   """"""
   Footer(locale: String): Footer
 
   """"""
-  FullWithBlogTeaser(id: ID!, locale: String): FullWithBlogTeaser
+  Fulltext(id: ID!, locale: String): Fulltext
 
   """"""
-  Fulltext(id: ID!, locale: String): Fulltext
+  FullwidthBlogTeaser(id: ID!, locale: String): FullwidthBlogTeaser
 
   """"""
   Headline(id: ID!, locale: String): Headline
@@ -1578,19 +1818,25 @@ type Query {
   allAsset(after: String, before: String, first: Int, last: Int, locale: String, sort: [Asset_Sort], where: [Asset_Where]): Asset_Connection
 
   """"""
+  allAuthor(after: String, before: String, first: Int, last: Int, locale: String, sort: [Author_Sort], where: [Author_Where]): Author_Connection
+
+  """"""
   allBlogArticle(after: String, before: String, first: Int, last: Int, locale: String, sort: [BlogArticle_Sort], where: [BlogArticle_Where]): BlogArticle_Connection
 
   """"""
   allBlogArticleGrid(after: String, before: String, first: Int, last: Int, locale: String, sort: [BlogArticleGrid_Sort], where: [BlogArticleGrid_Where]): BlogArticleGrid_Connection
 
   """"""
+  allCategory(after: String, before: String, first: Int, last: Int, locale: String, sort: [Category_Sort], where: [Category_Where]): Category_Connection
+
+  """"""
   allContactForm(after: String, before: String, first: Int, last: Int, locale: String, sort: [ContactForm_Sort], where: [ContactForm_Where]): ContactForm_Connection
 
   """"""
-  allFullWithBlogTeaser(after: String, before: String, first: Int, last: Int, locale: String, sort: [FullWithBlogTeaser_Sort], where: [FullWithBlogTeaser_Where]): FullWithBlogTeaser_Connection
+  allFulltext(after: String, before: String, first: Int, last: Int, locale: String, sort: [Fulltext_Sort], where: [Fulltext_Where]): Fulltext_Connection
 
   """"""
-  allFulltext(after: String, before: String, first: Int, last: Int, locale: String, sort: [Fulltext_Sort], where: [Fulltext_Where]): Fulltext_Connection
+  allFullwidthBlogTeaser(after: String, before: String, first: Int, last: Int, locale: String, sort: [FullwidthBlogTeaser_Sort], where: [FullwidthBlogTeaser_Where]): FullwidthBlogTeaser_Connection
 
   """"""
   allHeadline(after: String, before: String, first: Int, last: Int, locale: String, sort: [Headline_Sort], where: [Headline_Where]): Headline_Connection

@@ -6,7 +6,6 @@ import type {
 } from "../services/graphql/__generated/sdk";
 import Layout from "./Layout.astro";
 import ComponentSelector from "./ComponentSelector.astro";
-import DefaultSpacer from "../components/DefaultSpacer.astro";
 
 export interface Props {
   Page?: IGenPage | null;
@@ -25,7 +24,7 @@ const props: Props = Astro.props;
   <>
     {
       props?.Page?.components?.map(
-        (component) => component && <><ComponentSelector component={component} /><DefaultSpacer/></>
+        (component) => component && <><ComponentSelector component={component} /></>
       )
     }
   </>

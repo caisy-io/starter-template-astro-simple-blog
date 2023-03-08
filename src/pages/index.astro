@@ -1,8 +1,8 @@
 ---
 import Page from "../layouts/Page.astro";
-import { getProps } from "../services/content/getProps";
+import { EPageType, getProps } from "../services/content/getProps";
 
-const props = await getProps({});
+const props = await getProps({pageType: EPageType.Index});
 
 if (props.is404) return Astro.redirect("/404");
 ---

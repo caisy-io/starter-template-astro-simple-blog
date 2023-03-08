@@ -8,6 +8,7 @@ import Navigation from "./Navigation.astro";
 import Footer from "./Footer.astro";
 import "@fontsource/inter";
 import DefaultSpacer from "../components/DefaultSpacer.astro";
+import Toast from "../components/Toast.astro";
 
 export interface Props {
   seo?: IGenSeoInformation | null;
@@ -71,30 +72,12 @@ const ogImageAlt = seo?.ogImage?.description;
     <meta name="twitter:card" content="summary_large_image" />
   </head>
   <body>
+    { import.meta.env.PUBLIC_SHOW_ONBOARDING_TOAST != "false" && <Toast />}
     <Navigation {...navigation} />
-    <DefaultSpacer/>
-    <main class="font-body">
+    <main>
       <slot />
     </main>
     <Footer {...footer} />
-    <a href="/index"> index</a>
-    <br />
-    <a href="/blog"> blog root</a>
-    <br />
-    <a href="/home"> home</a><br />
-    <a href="/contact"> contact</a><br />
-    <a href="/blog/not-found"> blog not found</a><br />
-    <a href="/x/not-found"> x not found</a><br />
-    <a href="/x/x/not-found"> x/x not found</a><br />
-    <a href="/blog/10-seo-tipps"> blog 10-seo-tipps</a><br />
   </body>
 </html>
-<style is:global>
-  html {
-    font-family: system-ui, sans-serif;
-  }
-  code {
-    font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-      DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
-  }
-</style>
+

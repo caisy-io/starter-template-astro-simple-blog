@@ -7,7 +7,7 @@ export interface Props extends IGenFooter{}
 const { content } = Astro.props;
 ---
 <div class="flex items-center justify-center">
-  <footer class="prose lg:prose-xl pb-10 pt-20 flex items-center justify-center">
+  <footer class="prose pb-10 pt-20 flex items-center justify-center">
     {content?.json && <RichTextRenderer node={content?.json} />}
   </footer>
 </div>

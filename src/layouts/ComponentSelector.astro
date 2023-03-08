@@ -1,6 +1,10 @@
 ---
+import BlogArticleGrid from '../components/blog-artcle-grid/BlogArticleGrid.astro';
+import ContactForm from '../components/ContactForm.astro';
 import FullText from '../components/fulltext/FullText.astro';
+import FullwidthBlogTeaser from '../components/FullwidthBlogTeaser.astro';
 import Headline from '../components/Headline.astro';
+import NewsletterSignup from '../components/NewsletterSignup.astro';
 import type { IGenPage_Components } from '../services/graphql/__generated/sdk';
 
 export interface Props {
@@ -11,3 +15,7 @@ const { component } = Astro.props;
 ---
 {component.__typename == "Headline" && <Headline {...component} />}
 {component.__typename == "Fulltext" && <FullText {...component} />}
+{component.__typename == "BlogArticleGrid" && <BlogArticleGrid {...component} />}
+{component.__typename == "NewsletterSignup" && <NewsletterSignup {...component} />}
+{component.__typename == "FullwidthBlogTeaser" && <FullwidthBlogTeaser {...component} />}
+{component.__typename == "ContactForm" && <ContactForm {...component} />}

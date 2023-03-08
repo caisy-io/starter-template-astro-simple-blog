@@ -1,5 +1,5 @@
 ---
-import type { IGenHeadline } from "../../services/graphql/__generated/sdk";
+import type { IGenHeadline } from "../services/graphql/__generated/sdk";
 import CenterContainer from "./CenterContainer.astro";
 
 export interface Props extends IGenHeadline {}
@@ -9,7 +9,7 @@ const { headline, subheadline } = Astro.props;
 
 <CenterContainer>
   <div
-    class="flex flex-col justify-start items-center gap-2.5"
+    class="mb-8 flex flex-col justify-start items-center gap-2.5"
   >
     {
       headline && (

@@ -5,7 +5,7 @@ import { getProps } from "../services/content/getProps";
 const { slug } = Astro.params;
 const props = await getProps({ slug });
 
-console.log(` props`, props);
 if (props.is404) return Astro.redirect("/404");
+if (props.redirectHome) return Astro.redirect("/");
 ---
 <Page {...props}/>
