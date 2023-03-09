@@ -1,13 +1,13 @@
 {
-  "name": "@example/minimal",
+  "name": "@caisy/starter-template-astro-simple-blog",
   "version": "0.0.1",
-  "private": true,
+  "private": false,
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "gen": "graphql-codegen -r dotenv/config --config codegen_sdk.ts",
+    "gen": "graphql-codegen -r dotenv/config --config codegen.ts",
     "gen:watch": "graphql-codegen --watch -r dotenv/config --config codegen.ts",
     "astro": "astro"
   },
@@ -21,7 +21,6 @@
   "devDependencies": {
     "@astrojs/tailwind": "^3.0.1",
     "@astrojs/vercel": "^3.2.0",
-    "@caisy/sdk": "^0.4.2",
     "@graphql-codegen/cli": "^3.2.1",
     "@graphql-codegen/client-preset": "1.1.4",
     "@graphql-codegen/introspection": "2.2.1",
