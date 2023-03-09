@@ -1,6 +1,9 @@
 # Starter template Astro simple blog
 ## Astro x Caisy 
 
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fcaisy-io%2Fstarter-template-astro-simple-blog&env=CAISY_PROJECT_ID,CAISY_API_KEY&envDescription=CAISY_PROJECT_ID%20and%20CAISY_API_KEY%20is%20required%20for%20the%20tempalte%20to%20work&envLink=https%3A%2F%2Fcaisy.io%2Fdeveloper%2Fdocs%2Fauthentication%2Fapi-keys&project-name=caisy-astro-simple-blog&repository-name=caisy-astro-simple-blog&demo-title=caisy-astro-simple-blog&demo-description=Example%20Deployment%20of%20this%20Template&demo-url=https%3A%2F%2Fstarter-template-astro-simple-blog.vercel.app)
+
+
 To run this project a `.env` file like this (with your own projects values) is required: 
 ```
 CAISY_PROJECT_ID=a894c383-edfc-4499-a639-a40509986ed4
