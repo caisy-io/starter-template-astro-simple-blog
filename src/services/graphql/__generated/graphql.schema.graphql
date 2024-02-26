@@ -7,6 +7,9 @@ type Asset {
   author: String
 
   """"""
+  blurHash: String
+
+  """"""
   copyright: String
 
   """"""
@@ -14,6 +17,9 @@ type Asset {
 
   """"""
   dominantColor: String
+
+  """"""
+  height: Int
 
   """"""
   id: ID
@@ -32,6 +38,9 @@ type Asset {
 
   """"""
   title: String
+
+  """"""
+  width: Int
 }
 
 """"""
@@ -56,33 +65,45 @@ type Asset_ConnectionEdge {
 }
 
 """"""
-input Asset_CreateInput {
+input Asset_Nested_Where {
   """"""
-  author: String
+  AND: [Asset_Nested_Where]
 
   """"""
-  copyright: String
+  OR: [Asset_Nested_Where]
 
   """"""
-  description: String
+  author: CaisyField_String_Where
 
   """"""
-  dominantColor: String
+  blurHash: CaisyField_String_Where
 
   """"""
-  keywords: String
+  copyright: CaisyField_String_Where
 
   """"""
-  originType: String
+  description: CaisyField_String_Where
 
   """"""
-  originalName: String
+  dominantColor: CaisyField_Color_Where
 
   """"""
-  src: String
+  height: CaisyField_Number_WhereInt
 
   """"""
-  title: String
+  keywords: CaisyField_String_Where
+
+  """"""
+  originType: CaisyField_String_Where
+
+  """"""
+  originalName: CaisyField_String_Where
+
+  """"""
+  title: CaisyField_String_Where
+
+  """"""
+  width: CaisyField_Number_WhereInt
 }
 
 """"""
@@ -91,13 +112,25 @@ input Asset_Sort {
   author: Order
 
   """"""
+  blurHash: Order
+
+  """"""
   copyright: Order
+
+  """"""
+  createdAt: Order
 
   """"""
   description: Order
 
   """"""
   dominantColor: Order
+
+  """"""
+  height: Order
+
+  """"""
+  id: Order
 
   """"""
   keywords: Order
@@ -109,37 +142,16 @@ input Asset_Sort {
   originalName: Order
 
   """"""
+  publishedAt: Order
+
+  """"""
   title: Order
-}
-
-""""""
-input Asset_UpdateInput {
-  """"""
-  author: String
 
   """"""
-  copyright: String
+  updatedAt: Order
 
   """"""
-  description: String
-
-  """"""
-  dominantColor: String
-
-  """"""
-  keywords: String
-
-  """"""
-  originType: String
-
-  """"""
-  originalName: String
-
-  """"""
-  src: String
-
-  """"""
-  title: String
+  width: Order
 }
 
 """"""
@@ -154,6 +166,9 @@ input Asset_Where {
   author: CaisyField_String_Where
 
   """"""
+  blurHash: CaisyField_String_Where
+
+  """"""
   copyright: CaisyField_String_Where
 
   """"""
@@ -161,6 +176,9 @@ input Asset_Where {
 
   """"""
   dominantColor: CaisyField_Color_Where
+
+  """"""
+  height: CaisyField_Number_WhereInt
 
   """"""
   keywords: CaisyField_String_Where
@@ -173,6 +191,9 @@ input Asset_Where {
 
   """"""
   title: CaisyField_String_Where
+
+  """"""
+  width: CaisyField_Number_WhereInt
 }
 
 """"""
@@ -181,7 +202,18 @@ type Author {
   _meta: CaisyDocument_Meta
 
   """"""
-  avatar(locale: String): Asset
+  avatar(
+    """
+    The cursor to start the pagination from. In this case the curser equals the id for the (last) element. If not set, we wil start from the beginning.
+    """
+    after: String
+
+    """The number of items to return. Default and max value is 100."""
+    first: Int = 100
+
+    """"""
+    locale: String
+  ): Asset
 
   """"""
   id: ID
@@ -191,6 +223,18 @@ type Author {
 
   """"""
   role: String
+}
+
+""""""
+input Author_Avatar_Where {
+  """"""
+  findOne: Author_Avatar_WhereConnection
+}
+
+""""""
+input Author_Avatar_WhereConnection {
+  """"""
+  Asset: Asset_Nested_Where
 }
 
 """"""
@@ -215,15 +259,18 @@ type Author_ConnectionEdge {
 }
 
 """"""
-input Author_CreateInput {
+input Author_Nested_Where {
   """"""
-  avatar: ID
+  AND: [Author_Nested_Where]
 
   """"""
-  name: String
+  OR: [Author_Nested_Where]
 
   """"""
-  role: String
+  name: CaisyField_String_Where
+
+  """"""
+  role: CaisyField_String_Where
 }
 
 """"""
@@ -232,22 +279,22 @@ input Author_Sort {
   avatar: Order
 
   """"""
+  createdAt: Order
+
+  """"""
+  id: Order
+
+  """"""
   name: Order
 
   """"""
+  publishedAt: Order
+
+  """"""
   role: Order
-}
-
-""""""
-input Author_UpdateInput {
-  """"""
-  avatar: ID
 
   """"""
-  name: String
-
-  """"""
-  role: String
+  updatedAt: Order
 }
 
 """"""
@@ -257,6 +304,9 @@ input Author_Where {
 
   """"""
   OR: [Author_Where]
+
+  """"""
+  avatar: Author_Avatar_Where
 
   """"""
   name: CaisyField_String_Where
@@ -271,16 +321,49 @@ type BlogArticle {
   _meta: CaisyDocument_Meta
 
   """"""
-  author(locale: String): Author
+  author(
+    """
+    The cursor to start the pagination from. In this case the curser equals the id for the (last) element. If not set, we wil start from the beginning.
+    """
+    after: String
+
+    """The number of items to return. Default and max value is 100."""
+    first: Int = 100
+
+    """"""
+    locale: String
+  ): Author
 
   """"""
-  category(locale: String): Category
+  category(
+    """
+    The cursor to start the pagination from. In this case the curser equals the id for the (last) element. If not set, we wil start from the beginning.
+    """
+    after: String
+
+    """The number of items to return. Default and max value is 100."""
+    first: Int = 100
+
+    """"""
+    locale: String
+  ): Category
 
   """"""
   id: ID
 
   """"""
-  seo(locale: String): SeoInformation
+  seo(
+    """
+    The cursor to start the pagination from. In this case the curser equals the id for the (last) element. If not set, we wil start from the beginning.
+    """
+    after: String
+
+    """The number of items to return. Default and max value is 100."""
+    first: Int = 100
+
+    """"""
+    locale: String
+  ): SeoInformation
 
   """"""
   slug: String
@@ -292,7 +375,18 @@ type BlogArticle {
   teaserHeadline: String
 
   """"""
-  teaserImage(locale: String): Asset
+  teaserImage(
+    """
+    The cursor to start the pagination from. In this case the curser equals the id for the (last) element. If not set, we wil start from the beginning.
+    """
+    after: String
+
+    """The number of items to return. Default and max value is 100."""
+    first: Int = 100
+
+    """"""
+    locale: String
+  ): Asset
 
   """"""
   text(locale: String): BlogArticle_text
@@ -304,7 +398,18 @@ type BlogArticleGrid {
   _meta: CaisyDocument_Meta
 
   """"""
-  articles(locale: String): [BlogArticleGrid_articles]
+  articles(
+    """
+    The cursor to start the pagination from. In this case the curser equals the id for the (last) element. If not set, we wil start from the beginning.
+    """
+    after: String
+
+    """The number of items to return. Default and max value is 100."""
+    first: Int = 100
+
+    """"""
+    locale: String
+  ): [BlogArticleGrid_articles]
 
   """"""
   headline: String
@@ -317,6 +422,18 @@ type BlogArticleGrid {
 
   """"""
   titleInternal: String
+}
+
+""""""
+input BlogArticleGrid_Articles_Where {
+  """"""
+  findOne: BlogArticleGrid_Articles_WhereConnection
+}
+
+""""""
+input BlogArticleGrid_Articles_WhereConnection {
+  """"""
+  BlogArticle: BlogArticle_Nested_Where
 }
 
 """"""
@@ -341,18 +458,21 @@ type BlogArticleGrid_ConnectionEdge {
 }
 
 """"""
-input BlogArticleGrid_CreateInput {
+input BlogArticleGrid_Nested_Where {
   """"""
-  articles: [ID]
+  AND: [BlogArticleGrid_Nested_Where]
 
   """"""
-  headline: String
+  OR: [BlogArticleGrid_Nested_Where]
 
   """"""
-  subheadline: String
+  headline: CaisyField_String_Where
 
   """"""
-  titleInternal: String
+  subheadline: CaisyField_String_Where
+
+  """"""
+  titleInternal: CaisyField_String_Where
 }
 
 """"""
@@ -361,28 +481,25 @@ input BlogArticleGrid_Sort {
   articles: Order
 
   """"""
+  createdAt: Order
+
+  """"""
   headline: Order
+
+  """"""
+  id: Order
+
+  """"""
+  publishedAt: Order
 
   """"""
   subheadline: Order
 
   """"""
   titleInternal: Order
-}
-
-""""""
-input BlogArticleGrid_UpdateInput {
-  """"""
-  articles: [ID]
 
   """"""
-  headline: String
-
-  """"""
-  subheadline: String
-
-  """"""
-  titleInternal: String
+  updatedAt: Order
 }
 
 """"""
@@ -392,6 +509,9 @@ input BlogArticleGrid_Where {
 
   """"""
   OR: [BlogArticleGrid_Where]
+
+  """"""
+  articles: BlogArticleGrid_Articles_Where
 
   """"""
   headline: CaisyField_String_Where
@@ -405,6 +525,30 @@ input BlogArticleGrid_Where {
 
 """"""
 union BlogArticleGrid_articles = BlogArticle
+
+""""""
+input BlogArticle_Author_Where {
+  """"""
+  findOne: BlogArticle_Author_WhereConnection
+}
+
+""""""
+input BlogArticle_Author_WhereConnection {
+  """"""
+  Author: Author_Nested_Where
+}
+
+""""""
+input BlogArticle_Category_Where {
+  """"""
+  findOne: BlogArticle_Category_WhereConnection
+}
+
+""""""
+input BlogArticle_Category_WhereConnection {
+  """"""
+  Category: Category_Nested_Where
+}
 
 """"""
 type BlogArticle_Connection {
@@ -428,90 +572,12 @@ type BlogArticle_ConnectionEdge {
 }
 
 """"""
-input BlogArticle_CreateInput {
+input BlogArticle_Nested_Where {
   """"""
-  author: ID
+  AND: [BlogArticle_Nested_Where]
 
   """"""
-  category: ID
-
-  """"""
-  seo: ID
-
-  """"""
-  slug: String
-
-  """"""
-  teaserDesciption: String
-
-  """"""
-  teaserHeadline: String
-
-  """"""
-  teaserImage: ID
-
-  """"""
-  text: JSON
-}
-
-""""""
-input BlogArticle_Sort {
-  """"""
-  author: Order
-
-  """"""
-  category: Order
-
-  """"""
-  seo: Order
-
-  """"""
-  slug: Order
-
-  """"""
-  teaserDesciption: Order
-
-  """"""
-  teaserHeadline: Order
-
-  """"""
-  teaserImage: Order
-}
-
-""""""
-input BlogArticle_UpdateInput {
-  """"""
-  author: ID
-
-  """"""
-  category: ID
-
-  """"""
-  seo: ID
-
-  """"""
-  slug: String
-
-  """"""
-  teaserDesciption: String
-
-  """"""
-  teaserHeadline: String
-
-  """"""
-  teaserImage: ID
-
-  """"""
-  text: JSON
-}
-
-""""""
-input BlogArticle_Where {
-  """"""
-  AND: [BlogArticle_Where]
-
-  """"""
-  OR: [BlogArticle_Where]
+  OR: [BlogArticle_Nested_Where]
 
   """"""
   slug: CaisyField_String_Where
@@ -527,16 +593,120 @@ input BlogArticle_Where {
 }
 
 """"""
+input BlogArticle_Seo_Where {
+  """"""
+  findOne: BlogArticle_Seo_WhereConnection
+}
+
+""""""
+input BlogArticle_Seo_WhereConnection {
+  """"""
+  SeoInformation: SeoInformation_Nested_Where
+}
+
+""""""
+input BlogArticle_Sort {
+  """"""
+  author: Order
+
+  """"""
+  category: Order
+
+  """"""
+  createdAt: Order
+
+  """"""
+  id: Order
+
+  """"""
+  publishedAt: Order
+
+  """"""
+  seo: Order
+
+  """"""
+  slug: Order
+
+  """"""
+  teaserDesciption: Order
+
+  """"""
+  teaserHeadline: Order
+
+  """"""
+  teaserImage: Order
+
+  """"""
+  updatedAt: Order
+}
+
+""""""
+input BlogArticle_TeaserImage_Where {
+  """"""
+  findOne: BlogArticle_TeaserImage_WhereConnection
+}
+
+""""""
+input BlogArticle_TeaserImage_WhereConnection {
+  """"""
+  Asset: Asset_Nested_Where
+}
+
+""""""
+input BlogArticle_Where {
+  """"""
+  AND: [BlogArticle_Where]
+
+  """"""
+  OR: [BlogArticle_Where]
+
+  """"""
+  author: BlogArticle_Author_Where
+
+  """"""
+  category: BlogArticle_Category_Where
+
+  """"""
+  seo: BlogArticle_Seo_Where
+
+  """"""
+  slug: CaisyField_String_Where
+
+  """"""
+  teaserDesciption: CaisyField_String_Where
+
+  """"""
+  teaserHeadline: CaisyField_String_Where
+
+  """"""
+  teaserImage: BlogArticle_TeaserImage_Where
+
+  """"""
+  text: CaisyField_Richtext_Where
+}
+
+""""""
 type BlogArticle_text {
   """"""
-  connections: [BlogArticle_text_Connections]
+  connections(
+    """
+    The cursor to start the pagination from. In this case the curser equals the id for the (last) element. If not set, we wil start from the beginning.
+    """
+    after: String
+
+    """The number of items to return. Default and max value is 100."""
+    first: Int = 100
+
+    """"""
+    locale: String
+  ): [BlogArticle_text_Connections]
 
   """"""
   json: JSON
 }
 
 """"""
-union BlogArticle_text_Connections = Asset
+union BlogArticle_text_Connections = Asset | NewsletterSignup
 
 """"""
 type CaisyDocument_Meta {
@@ -569,6 +739,27 @@ input CaisyField_Color_Where {
 
   """"""
   neq: String
+}
+
+""""""
+input CaisyField_Number_WhereInt {
+  """"""
+  eq: Int
+
+  """"""
+  gt: Int
+
+  """"""
+  gte: Int
+
+  """"""
+  lt: Int
+
+  """"""
+  lte: Int
+
+  """"""
+  neq: Int
 }
 
 """"""
@@ -605,6 +796,18 @@ type Caisy_Field_Document_NotFound {
 }
 
 """"""
+type Caisy_Field_Tag {
+  """"""
+  color: String
+
+  """"""
+  id: String
+
+  """"""
+  name: String
+}
+
+""""""
 type Category {
   """"""
   _meta: CaisyDocument_Meta
@@ -638,21 +841,33 @@ type Category_ConnectionEdge {
 }
 
 """"""
-input Category_CreateInput {
+input Category_Nested_Where {
   """"""
-  name: String
+  AND: [Category_Nested_Where]
+
+  """"""
+  OR: [Category_Nested_Where]
+
+  """"""
+  name: CaisyField_String_Where
 }
 
 """"""
 input Category_Sort {
   """"""
-  name: Order
-}
+  createdAt: Order
 
-""""""
-input Category_UpdateInput {
   """"""
-  name: String
+  id: Order
+
+  """"""
+  name: Order
+
+  """"""
+  publishedAt: Order
+
+  """"""
+  updatedAt: Order
 }
 
 """"""
@@ -704,30 +919,39 @@ type ContactForm_ConnectionEdge {
 }
 
 """"""
-input ContactForm_CreateInput {
+input ContactForm_Nested_Where {
   """"""
-  headline: String
+  AND: [ContactForm_Nested_Where]
 
   """"""
-  titleInternal: String
+  OR: [ContactForm_Nested_Where]
+
+  """"""
+  headline: CaisyField_String_Where
+
+  """"""
+  titleInternal: CaisyField_String_Where
 }
 
 """"""
 input ContactForm_Sort {
   """"""
+  createdAt: Order
+
+  """"""
   headline: Order
 
   """"""
+  id: Order
+
+  """"""
+  publishedAt: Order
+
+  """"""
   titleInternal: Order
-}
-
-""""""
-input ContactForm_UpdateInput {
-  """"""
-  headline: String
 
   """"""
-  titleInternal: String
+  updatedAt: Order
 }
 
 """"""
@@ -766,27 +990,20 @@ type Footer {
 }
 
 """"""
-input Footer_CreateInput {
-  """"""
-  content: JSON
-
-  """"""
-  titleInternal: String
-}
-
-""""""
-input Footer_UpdateInput {
-  """"""
-  content: JSON
-
-  """"""
-  titleInternal: String
-}
-
-""""""
 type Footer_content {
   """"""
-  connections: [Footer_content_Connections]
+  connections(
+    """
+    The cursor to start the pagination from. In this case the curser equals the id for the (last) element. If not set, we wil start from the beginning.
+    """
+    after: String
+
+    """The number of items to return. Default and max value is 100."""
+    first: Int = 100
+
+    """"""
+    locale: String
+  ): [Footer_content_Connections]
 
   """"""
   json: JSON
@@ -832,27 +1049,36 @@ type Fulltext_ConnectionEdge {
 }
 
 """"""
-input Fulltext_CreateInput {
+input Fulltext_Nested_Where {
   """"""
-  text: JSON
+  AND: [Fulltext_Nested_Where]
 
   """"""
-  titleInternal: String
+  OR: [Fulltext_Nested_Where]
+
+  """"""
+  text: CaisyField_Richtext_Where
+
+  """"""
+  titleInternal: CaisyField_String_Where
 }
 
 """"""
 input Fulltext_Sort {
   """"""
+  createdAt: Order
+
+  """"""
+  id: Order
+
+  """"""
+  publishedAt: Order
+
+  """"""
   titleInternal: Order
-}
-
-""""""
-input Fulltext_UpdateInput {
-  """"""
-  text: JSON
 
   """"""
-  titleInternal: String
+  updatedAt: Order
 }
 
 """"""
@@ -873,7 +1099,18 @@ input Fulltext_Where {
 """"""
 type Fulltext_text {
   """"""
-  connections: [Fulltext_text_Connections]
+  connections(
+    """
+    The cursor to start the pagination from. In this case the curser equals the id for the (last) element. If not set, we wil start from the beginning.
+    """
+    after: String
+
+    """The number of items to return. Default and max value is 100."""
+    first: Int = 100
+
+    """"""
+    locale: String
+  ): [Fulltext_text_Connections]
 
   """"""
   json: JSON
@@ -888,7 +1125,18 @@ type FullwidthBlogTeaser {
   _meta: CaisyDocument_Meta
 
   """"""
-  featuredArticle(locale: String): BlogArticle
+  featuredArticle(
+    """
+    The cursor to start the pagination from. In this case the curser equals the id for the (last) element. If not set, we wil start from the beginning.
+    """
+    after: String
+
+    """The number of items to return. Default and max value is 100."""
+    first: Int = 100
+
+    """"""
+    locale: String
+  ): BlogArticle
 
   """"""
   id: ID
@@ -919,30 +1167,48 @@ type FullwidthBlogTeaser_ConnectionEdge {
 }
 
 """"""
-input FullwidthBlogTeaser_CreateInput {
+input FullwidthBlogTeaser_FeaturedArticle_Where {
   """"""
-  featuredArticle: ID
+  findOne: FullwidthBlogTeaser_FeaturedArticle_WhereConnection
+}
+
+""""""
+input FullwidthBlogTeaser_FeaturedArticle_WhereConnection {
+  """"""
+  BlogArticle: BlogArticle_Nested_Where
+}
+
+""""""
+input FullwidthBlogTeaser_Nested_Where {
+  """"""
+  AND: [FullwidthBlogTeaser_Nested_Where]
 
   """"""
-  titleInternal: String
+  OR: [FullwidthBlogTeaser_Nested_Where]
+
+  """"""
+  titleInternal: CaisyField_String_Where
 }
 
 """"""
 input FullwidthBlogTeaser_Sort {
   """"""
+  createdAt: Order
+
+  """"""
   featuredArticle: Order
 
   """"""
+  id: Order
+
+  """"""
+  publishedAt: Order
+
+  """"""
   titleInternal: Order
-}
-
-""""""
-input FullwidthBlogTeaser_UpdateInput {
-  """"""
-  featuredArticle: ID
 
   """"""
-  titleInternal: String
+  updatedAt: Order
 }
 
 """"""
@@ -952,6 +1218,9 @@ input FullwidthBlogTeaser_Where {
 
   """"""
   OR: [FullwidthBlogTeaser_Where]
+
+  """"""
+  featuredArticle: FullwidthBlogTeaser_FeaturedArticle_Where
 
   """"""
   titleInternal: CaisyField_String_Where
@@ -997,39 +1266,45 @@ type Headline_ConnectionEdge {
 }
 
 """"""
-input Headline_CreateInput {
+input Headline_Nested_Where {
   """"""
-  headline: String
+  AND: [Headline_Nested_Where]
 
   """"""
-  subheadline: String
+  OR: [Headline_Nested_Where]
 
   """"""
-  titleInternal: String
+  headline: CaisyField_String_Where
+
+  """"""
+  subheadline: CaisyField_String_Where
+
+  """"""
+  titleInternal: CaisyField_String_Where
 }
 
 """"""
 input Headline_Sort {
   """"""
+  createdAt: Order
+
+  """"""
   headline: Order
+
+  """"""
+  id: Order
+
+  """"""
+  publishedAt: Order
 
   """"""
   subheadline: Order
 
   """"""
   titleInternal: Order
-}
-
-""""""
-input Headline_UpdateInput {
-  """"""
-  headline: String
 
   """"""
-  subheadline: String
-
-  """"""
-  titleInternal: String
+  updatedAt: Order
 }
 
 """"""
@@ -1054,384 +1329,54 @@ input Headline_Where {
 scalar JSON
 
 """"""
-type Mutation {
-  """"""
-  createAsset(input: Asset_CreateInput!, locale: String): Asset
-
-  """"""
-  createAuthor(input: Author_CreateInput!, locale: String): Author
-
-  """"""
-  createBlogArticle(input: BlogArticle_CreateInput!, locale: String): BlogArticle
-
-  """"""
-  createBlogArticleGrid(input: BlogArticleGrid_CreateInput!, locale: String): BlogArticleGrid
-
-  """"""
-  createCategory(input: Category_CreateInput!, locale: String): Category
-
-  """"""
-  createContactForm(input: ContactForm_CreateInput!, locale: String): ContactForm
-
-  """"""
-  createFooter(input: Footer_CreateInput!, locale: String): Footer
-
-  """"""
-  createFulltext(input: Fulltext_CreateInput!, locale: String): Fulltext
-
-  """"""
-  createFullwidthBlogTeaser(input: FullwidthBlogTeaser_CreateInput!, locale: String): FullwidthBlogTeaser
-
-  """"""
-  createHeadline(input: Headline_CreateInput!, locale: String): Headline
-
-  """"""
-  createNavigation(input: Navigation_CreateInput!, locale: String): Navigation
-
-  """"""
-  createNavigationEntry(input: NavigationEntry_CreateInput!, locale: String): NavigationEntry
-
-  """"""
-  createNewsletterSignup(input: NewsletterSignup_CreateInput!, locale: String): NewsletterSignup
-
-  """"""
-  createPage(input: Page_CreateInput!, locale: String): Page
-
-  """"""
-  createSeoInformation(input: SeoInformation_CreateInput!, locale: String): SeoInformation
-
-  """"""
-  deleteAsset(
-    """DocumentID"""
-    id: ID!
-  ): Boolean
-
-  """"""
-  deleteAuthor(
-    """DocumentID"""
-    id: ID!
-  ): Boolean
-
-  """"""
-  deleteBlogArticle(
-    """DocumentID"""
-    id: ID!
-  ): Boolean
-
-  """"""
-  deleteBlogArticleGrid(
-    """DocumentID"""
-    id: ID!
-  ): Boolean
-
-  """"""
-  deleteCategory(
-    """DocumentID"""
-    id: ID!
-  ): Boolean
-
-  """"""
-  deleteContactForm(
-    """DocumentID"""
-    id: ID!
-  ): Boolean
-
-  """"""
-  deleteFooter(
-    """DocumentID"""
-    id: ID!
-  ): Boolean
-
-  """"""
-  deleteFulltext(
-    """DocumentID"""
-    id: ID!
-  ): Boolean
-
-  """"""
-  deleteFullwidthBlogTeaser(
-    """DocumentID"""
-    id: ID!
-  ): Boolean
-
-  """"""
-  deleteHeadline(
-    """DocumentID"""
-    id: ID!
-  ): Boolean
-
-  """"""
-  deleteNavigation(
-    """DocumentID"""
-    id: ID!
-  ): Boolean
-
-  """"""
-  deleteNavigationEntry(
-    """DocumentID"""
-    id: ID!
-  ): Boolean
-
-  """"""
-  deleteNewsletterSignup(
-    """DocumentID"""
-    id: ID!
-  ): Boolean
-
-  """"""
-  deletePage(
-    """DocumentID"""
-    id: ID!
-  ): Boolean
-
-  """"""
-  deleteSeoInformation(
-    """DocumentID"""
-    id: ID!
-  ): Boolean
-
-  """"""
-  updateAsset(
-    """documentID"""
-    id: ID!
-
-    """"""
-    input: Asset_UpdateInput!
-
-    """"""
-    locale: String
-
-    """Merge updated input (instead of replacing)"""
-    merge: Boolean = true
-  ): Asset
-
-  """"""
-  updateAuthor(
-    """documentID"""
-    id: ID!
-
-    """"""
-    input: Author_UpdateInput!
-
-    """"""
-    locale: String
-
-    """Merge updated input (instead of replacing)"""
-    merge: Boolean = true
-  ): Author
-
-  """"""
-  updateBlogArticle(
-    """documentID"""
-    id: ID!
-
-    """"""
-    input: BlogArticle_UpdateInput!
-
-    """"""
-    locale: String
-
-    """Merge updated input (instead of replacing)"""
-    merge: Boolean = true
-  ): BlogArticle
-
-  """"""
-  updateBlogArticleGrid(
-    """documentID"""
-    id: ID!
-
-    """"""
-    input: BlogArticleGrid_UpdateInput!
-
-    """"""
-    locale: String
-
-    """Merge updated input (instead of replacing)"""
-    merge: Boolean = true
-  ): BlogArticleGrid
-
-  """"""
-  updateCategory(
-    """documentID"""
-    id: ID!
-
-    """"""
-    input: Category_UpdateInput!
-
-    """"""
-    locale: String
-
-    """Merge updated input (instead of replacing)"""
-    merge: Boolean = true
-  ): Category
-
-  """"""
-  updateContactForm(
-    """documentID"""
-    id: ID!
-
-    """"""
-    input: ContactForm_UpdateInput!
-
-    """"""
-    locale: String
-
-    """Merge updated input (instead of replacing)"""
-    merge: Boolean = true
-  ): ContactForm
-
-  """"""
-  updateFooter(
-    """documentID"""
-    id: ID!
-
-    """"""
-    input: Footer_UpdateInput!
-
-    """"""
-    locale: String
-
-    """Merge updated input (instead of replacing)"""
-    merge: Boolean = true
-  ): Footer
-
-  """"""
-  updateFulltext(
-    """documentID"""
-    id: ID!
-
-    """"""
-    input: Fulltext_UpdateInput!
-
-    """"""
-    locale: String
-
-    """Merge updated input (instead of replacing)"""
-    merge: Boolean = true
-  ): Fulltext
-
-  """"""
-  updateFullwidthBlogTeaser(
-    """documentID"""
-    id: ID!
-
-    """"""
-    input: FullwidthBlogTeaser_UpdateInput!
-
-    """"""
-    locale: String
-
-    """Merge updated input (instead of replacing)"""
-    merge: Boolean = true
-  ): FullwidthBlogTeaser
-
-  """"""
-  updateHeadline(
-    """documentID"""
-    id: ID!
-
-    """"""
-    input: Headline_UpdateInput!
-
-    """"""
-    locale: String
-
-    """Merge updated input (instead of replacing)"""
-    merge: Boolean = true
-  ): Headline
-
-  """"""
-  updateNavigation(
-    """documentID"""
-    id: ID!
-
-    """"""
-    input: Navigation_UpdateInput!
-
-    """"""
-    locale: String
-
-    """Merge updated input (instead of replacing)"""
-    merge: Boolean = true
-  ): Navigation
-
-  """"""
-  updateNavigationEntry(
-    """documentID"""
-    id: ID!
-
-    """"""
-    input: NavigationEntry_UpdateInput!
-
-    """"""
-    locale: String
-
-    """Merge updated input (instead of replacing)"""
-    merge: Boolean = true
-  ): NavigationEntry
-
-  """"""
-  updateNewsletterSignup(
-    """documentID"""
-    id: ID!
-
-    """"""
-    input: NewsletterSignup_UpdateInput!
-
-    """"""
-    locale: String
-
-    """Merge updated input (instead of replacing)"""
-    merge: Boolean = true
-  ): NewsletterSignup
-
-  """"""
-  updatePage(
-    """documentID"""
-    id: ID!
-
-    """"""
-    input: Page_UpdateInput!
-
-    """"""
-    locale: String
-
-    """Merge updated input (instead of replacing)"""
-    merge: Boolean = true
-  ): Page
-
-  """"""
-  updateSeoInformation(
-    """documentID"""
-    id: ID!
-
-    """"""
-    input: SeoInformation_UpdateInput!
-
-    """"""
-    locale: String
-
-    """Merge updated input (instead of replacing)"""
-    merge: Boolean = true
-  ): SeoInformation
-}
-
-""""""
 type Navigation {
   """"""
   _meta: CaisyDocument_Meta
 
   """"""
-  entries(locale: String): [Navigation_entries]
+  entries(
+    """
+    The cursor to start the pagination from. In this case the curser equals the id for the (last) element. If not set, we wil start from the beginning.
+    """
+    after: String
+
+    """The number of items to return. Default and max value is 100."""
+    first: Int = 100
+
+    """"""
+    locale: String
+  ): [Navigation_entries]
 
   """"""
-  homePage(locale: String): Page
+  homePage(
+    """
+    The cursor to start the pagination from. In this case the curser equals the id for the (last) element. If not set, we wil start from the beginning.
+    """
+    after: String
+
+    """The number of items to return. Default and max value is 100."""
+    first: Int = 100
+
+    """"""
+    locale: String
+  ): Page
 
   """"""
   id: ID
 
   """"""
-  notFoundPage(locale: String): Page
+  notFoundPage(
+    """
+    The cursor to start the pagination from. In this case the curser equals the id for the (last) element. If not set, we wil start from the beginning.
+    """
+    after: String
+
+    """The number of items to return. Default and max value is 100."""
+    first: Int = 100
+
+    """"""
+    locale: String
+  ): Page
 
   """"""
   titleInternal: String
@@ -1443,7 +1388,18 @@ type NavigationEntry {
   _meta: CaisyDocument_Meta
 
   """"""
-  connection(locale: String): Page
+  connection(
+    """
+    The cursor to start the pagination from. In this case the curser equals the id for the (last) element. If not set, we wil start from the beginning.
+    """
+    after: String
+
+    """The number of items to return. Default and max value is 100."""
+    first: Int = 100
+
+    """"""
+    locale: String
+  ): Page
 
   """"""
   id: ID
@@ -1474,12 +1430,15 @@ type NavigationEntry_ConnectionEdge {
 }
 
 """"""
-input NavigationEntry_CreateInput {
+input NavigationEntry_Connection_Where {
   """"""
-  connection: ID
+  findOne: NavigationEntry_Connection_WhereConnection
+}
 
+""""""
+input NavigationEntry_Connection_WhereConnection {
   """"""
-  title: String
+  Page: Page_Nested_Where
 }
 
 """"""
@@ -1488,16 +1447,19 @@ input NavigationEntry_Sort {
   connection: Order
 
   """"""
+  createdAt: Order
+
+  """"""
+  id: Order
+
+  """"""
+  publishedAt: Order
+
+  """"""
   title: Order
-}
-
-""""""
-input NavigationEntry_UpdateInput {
-  """"""
-  connection: ID
 
   """"""
-  title: String
+  updatedAt: Order
 }
 
 """"""
@@ -1509,37 +1471,10 @@ input NavigationEntry_Where {
   OR: [NavigationEntry_Where]
 
   """"""
+  connection: NavigationEntry_Connection_Where
+
+  """"""
   title: CaisyField_String_Where
-}
-
-""""""
-input Navigation_CreateInput {
-  """"""
-  entries: [ID]
-
-  """"""
-  homePage: ID
-
-  """"""
-  notFoundPage: ID
-
-  """"""
-  titleInternal: String
-}
-
-""""""
-input Navigation_UpdateInput {
-  """"""
-  entries: [ID]
-
-  """"""
-  homePage: ID
-
-  """"""
-  notFoundPage: ID
-
-  """"""
-  titleInternal: String
 }
 
 """"""
@@ -1585,39 +1520,45 @@ type NewsletterSignup_ConnectionEdge {
 }
 
 """"""
-input NewsletterSignup_CreateInput {
+input NewsletterSignup_Nested_Where {
   """"""
-  headline: String
+  AND: [NewsletterSignup_Nested_Where]
 
   """"""
-  subheadline: String
+  OR: [NewsletterSignup_Nested_Where]
 
   """"""
-  titleInternal: String
+  headline: CaisyField_String_Where
+
+  """"""
+  subheadline: CaisyField_String_Where
+
+  """"""
+  titleInternal: CaisyField_String_Where
 }
 
 """"""
 input NewsletterSignup_Sort {
   """"""
+  createdAt: Order
+
+  """"""
   headline: Order
+
+  """"""
+  id: Order
+
+  """"""
+  publishedAt: Order
 
   """"""
   subheadline: Order
 
   """"""
   titleInternal: Order
-}
-
-""""""
-input NewsletterSignup_UpdateInput {
-  """"""
-  headline: String
 
   """"""
-  subheadline: String
-
-  """"""
-  titleInternal: String
+  updatedAt: Order
 }
 
 """"""
@@ -1653,13 +1594,35 @@ type Page {
   _meta: CaisyDocument_Meta
 
   """"""
-  components(locale: String): [Page_components]
+  components(
+    """
+    The cursor to start the pagination from. In this case the curser equals the id for the (last) element. If not set, we wil start from the beginning.
+    """
+    after: String
+
+    """The number of items to return. Default and max value is 100."""
+    first: Int = 100
+
+    """"""
+    locale: String
+  ): [Page_components]
 
   """"""
   id: ID
 
   """"""
-  seo(locale: String): SeoInformation
+  seo(
+    """
+    The cursor to start the pagination from. In this case the curser equals the id for the (last) element. If not set, we wil start from the beginning.
+    """
+    after: String
+
+    """The number of items to return. Default and max value is 100."""
+    first: Int = 100
+
+    """"""
+    locale: String
+  ): SeoInformation
 
   """"""
   slug: String
@@ -1684,6 +1647,33 @@ type PageInfo {
 }
 
 """"""
+input Page_Components_Where {
+  """"""
+  findOne: Page_Components_WhereConnection
+}
+
+""""""
+input Page_Components_WhereConnection {
+  """"""
+  BlogArticleGrid: BlogArticleGrid_Nested_Where
+
+  """"""
+  ContactForm: ContactForm_Nested_Where
+
+  """"""
+  Fulltext: Fulltext_Nested_Where
+
+  """"""
+  FullwidthBlogTeaser: FullwidthBlogTeaser_Nested_Where
+
+  """"""
+  Headline: Headline_Nested_Where
+
+  """"""
+  NewsletterSignup: NewsletterSignup_Nested_Where
+}
+
+""""""
 type Page_Connection {
   """"""
   edges: [Page_ConnectionEdge]
@@ -1705,24 +1695,45 @@ type Page_ConnectionEdge {
 }
 
 """"""
-input Page_CreateInput {
+input Page_Nested_Where {
   """"""
-  components: [ID]
+  AND: [Page_Nested_Where]
 
   """"""
-  seo: ID
+  OR: [Page_Nested_Where]
 
   """"""
-  slug: String
+  slug: CaisyField_String_Where
 
   """"""
-  titleInternal: String
+  titleInternal: CaisyField_String_Where
+}
+
+""""""
+input Page_Seo_Where {
+  """"""
+  findOne: Page_Seo_WhereConnection
+}
+
+""""""
+input Page_Seo_WhereConnection {
+  """"""
+  SeoInformation: SeoInformation_Nested_Where
 }
 
 """"""
 input Page_Sort {
   """"""
   components: Order
+
+  """"""
+  createdAt: Order
+
+  """"""
+  id: Order
+
+  """"""
+  publishedAt: Order
 
   """"""
   seo: Order
@@ -1732,21 +1743,9 @@ input Page_Sort {
 
   """"""
   titleInternal: Order
-}
-
-""""""
-input Page_UpdateInput {
-  """"""
-  components: [ID]
 
   """"""
-  seo: ID
-
-  """"""
-  slug: String
-
-  """"""
-  titleInternal: String
+  updatedAt: Order
 }
 
 """"""
@@ -1756,6 +1755,12 @@ input Page_Where {
 
   """"""
   OR: [Page_Where]
+
+  """"""
+  components: Page_Components_Where
+
+  """"""
+  seo: Page_Seo_Where
 
   """"""
   slug: CaisyField_String_Where
@@ -1815,6 +1820,9 @@ type Query {
   SeoInformation(id: ID!, locale: String): SeoInformation
 
   """"""
+  Tag(id: ID!): Caisy_Field_Tag
+
+  """"""
   allAsset(after: String, before: String, first: Int, last: Int, locale: String, sort: [Asset_Sort], where: [Asset_Where]): Asset_Connection
 
   """"""
@@ -1852,6 +1860,9 @@ type Query {
 
   """"""
   allSeoInformation(after: String, before: String, first: Int, last: Int, locale: String, sort: [SeoInformation_Sort], where: [SeoInformation_Where]): SeoInformation_Connection
+
+  """"""
+  allTags(after: String, before: String, first: Int, last: Int): Tag_Connection
 }
 
 """"""
@@ -1869,7 +1880,18 @@ type SeoInformation {
   keywords: String
 
   """"""
-  ogImage(locale: String): Asset
+  ogImage(
+    """
+    The cursor to start the pagination from. In this case the curser equals the id for the (last) element. If not set, we wil start from the beginning.
+    """
+    after: String
+
+    """The number of items to return. Default and max value is 100."""
+    first: Int = 100
+
+    """"""
+    locale: String
+  ): Asset
 
   """"""
   title: String
@@ -1900,27 +1922,48 @@ type SeoInformation_ConnectionEdge {
 }
 
 """"""
-input SeoInformation_CreateInput {
+input SeoInformation_Nested_Where {
   """"""
-  description: String
+  AND: [SeoInformation_Nested_Where]
 
   """"""
-  keywords: String
+  OR: [SeoInformation_Nested_Where]
 
   """"""
-  ogImage: ID
+  description: CaisyField_String_Where
 
   """"""
-  title: String
+  keywords: CaisyField_String_Where
 
   """"""
-  titleInternal: String
+  title: CaisyField_String_Where
+
+  """"""
+  titleInternal: CaisyField_String_Where
+}
+
+""""""
+input SeoInformation_OgImage_Where {
+  """"""
+  findOne: SeoInformation_OgImage_WhereConnection
+}
+
+""""""
+input SeoInformation_OgImage_WhereConnection {
+  """"""
+  Asset: Asset_Nested_Where
 }
 
 """"""
 input SeoInformation_Sort {
   """"""
+  createdAt: Order
+
+  """"""
   description: Order
+
+  """"""
+  id: Order
 
   """"""
   keywords: Order
@@ -1929,28 +1972,16 @@ input SeoInformation_Sort {
   ogImage: Order
 
   """"""
+  publishedAt: Order
+
+  """"""
   title: Order
 
   """"""
   titleInternal: Order
-}
-
-""""""
-input SeoInformation_UpdateInput {
-  """"""
-  description: String
 
   """"""
-  keywords: String
-
-  """"""
-  ogImage: ID
-
-  """"""
-  title: String
-
-  """"""
-  titleInternal: String
+  updatedAt: Order
 }
 
 """"""
@@ -1968,8 +1999,32 @@ input SeoInformation_Where {
   keywords: CaisyField_String_Where
 
   """"""
+  ogImage: SeoInformation_OgImage_Where
+
+  """"""
   title: CaisyField_String_Where
 
   """"""
   titleInternal: CaisyField_String_Where
+}
+
+""""""
+type Tag_Connection {
+  """"""
+  edges: [Tag_ConnectionEdge]
+
+  """"""
+  pageInfo: PageInfo
+
+  """"""
+  totalCount: Int
+}
+
+""""""
+type Tag_ConnectionEdge {
+  """"""
+  cursor: String
+
+  """"""
+  node: Caisy_Field_Tag
 }
